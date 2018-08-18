@@ -51,6 +51,7 @@ export default {
         "hl.fl": "dist_place_t requestee_t",
         "hl.snippets": 1,
         "hl:fragsize": 1000,
-        "hl.preserveMulti": true
+        "hl.preserveMulti": true,
+        "sort": "last_modified desc"
     }
 };
