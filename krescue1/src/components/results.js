@@ -10,38 +10,48 @@ import classNames from 'classnames';
 
 const Results = ({searchResults, highlighting}) => {
 
-    function get_hl_or_normal_title(hit) {
-        let title = (highlighting &&
-            highlighting[hit.id] && highlighting[hit.id].name) ?
-            highlighting[hit.id].name.join("") : "";
-        if (title === "") {
-            title = hit.name || "product id " + hit.id;
+    function getData(object, field, defaultVal="") {
+        if (object && object.hasOwnProperty(field) && object[field]) {
+            return object[field];
         }
-        if (hit.url) {
-            return "<a target='_blank' href=\""+hit.url+"\">"+title+"</a><span>"+
-                (hit.link_type_s === "video"? "&nbsp; ▶️":"") + "</span>";
-        }
-        return title;
+        return defaultVal;
     }
 
-    function get_hl_or_normal_ingred(hit) {
-      let ingredients = hit.main_ingred;
-      if (highlighting && highlighting[hit.id] && highlighting[hit.id].main_ingred) {
-        ingredients = highlighting[hit.id].main_ingred;
-      }
+    function getHighlighted(highlighting, id, field) {
+        if (highlighting && highlighting[id] && highlighting[id][field]) {
+            return highlighting[id][field].join("");
+        }
+        return '';
+    }
 
-      if (ingredients && ingredients instanceof Array) {
-          const count = ingredients.length;
-          let ing_spans = "";
-          ingredients.map((ing, i) => {
-              ing_spans += ing;
-              if (i+1 < count) {
-                  ing_spans += ", ";
-              }
-          });
-          return ing_spans;
-      }
-      return hit.main_ingred;
+    function get_title(hit) {
+        let title = getHighlighted(highlighting, hit.id, 'dist_place_t');
+        if (!title) {
+            title = getData(hit, 'dist_place_t') || " id" + hit.id;
+        }
+        const detailUrl = "https://keralarescue.in/request_details/"+hit.id+"/";
+        return "<a target='_blank' href=\""+detailUrl+"\">"+title+"</a>";
+    }
+
+    function get_contact_map(hit) {
+        let contact = getHighlighted(highlighting, hit.id, 'requestee_t')
+        if (!contact) {
+            contact = getData(hit, 'requestee_t');
+        }
+
+        const phoneNo = getData(hit, 'requestee_phone_t');
+        let phone = '';
+        if (phoneNo) {
+            phone = "<span><a href='tel:"+ phoneNo +"'>" + phoneNo + "</a></span>";
+        }
+
+        const locStr = getData(hit, 'location_str');
+        let mapLocation = '';
+        if (locStr) {
+            const mapUrl = "http://maps.google.com/maps?q=" + encodeURI(locStr);
+            mapLocation =  "<span><a target='_blank' href='"+mapUrl+"'>Map</a></span>";
+        }
+        return contact +'&nbsp;&nbsp;'+ phone +'&nbsp;&nbsp;'+ mapLocation;
     }
 
     function get_notes(hit) {
@@ -79,8 +89,8 @@ const Results = ({searchResults, highlighting}) => {
     }
 
     const results = searchResults.map((hit) => {
-      const titleHtml = { __html: get_hl_or_normal_title(hit) };
-      const ingredientsHtml =  { __html: '<span>Main Ingredients: </span>' + get_hl_or_normal_ingred(hit) };
+      const titleHtml = { __html: get_title(hit) };
+      const ingredientsHtml =  { __html: '<span>Contact: </span>' + get_contact_map(hit) };
 
       const ingClassNames = classNames({"app_vsp03":true, "app_capitalize":true, "app_content": true});
       const prepTime = hit.prep_time_i ?  <em>⏱ {hit.prep_time_i} m&nbsp;&nbsp;</em>:"";

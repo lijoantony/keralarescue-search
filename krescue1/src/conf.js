@@ -48,7 +48,7 @@ export default {
     },
     highlightParams: {
         "hl": "on",
-        "hl.fl": "place_s district_full_s",
+        "hl.fl": "dist_place_t requestee_t",
         "hl.snippets": 1,
         "hl:fragsize": 1000,
         "hl.preserveMulti": true
