@@ -94,7 +94,7 @@ const SearchAppRenderer = props => {
       <QueryInput initialQuery={props.searchParams.query}
                   handleActions={props.handleActions} />
     </div>
-    {row2} {row3} {row4}
+    {row2} {row4} {row3} {row4}
     {busy}
   </div>;
 };
