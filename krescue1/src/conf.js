@@ -1,61 +1,56 @@
 export default {
-    solrSearchUrl: "http://localhost:8983/solr/recipe_v2/select",
+    solrSearchUrl: "http://localhost:8983/solr/krescue10/select",
     pageSize: 10,
+
     facet: {
-        ingredients: {
+        district: {
             type: "field",
-            field: "main_ingred",
+            limit: 20,
+            field: "district_full_s"
         },
-        dish_type: {
+        place: {
             type: "field",
-            field: "dish_type_s",
+            limit: 40,
+            field: "place_s"
         },
-        prep_time_10: {
+        is_request_for_others: {
             type: "query",
-            q: "prep_time_i:[0 TO 10]",
+            q: "is_request_for_others_b:true"
         },
-        prep_time_10_20: {
+        needfood: {
             type: "query",
-            q: "prep_time_i:[10 TO 20]",
+            q: "needfood_b:true"
         },
-        prep_time_20_: {
+        needcloth: {
             type: "query",
-            q: "prep_time_i:[20 TO *]",
+            q: "needcloth_b:true"
         },
-        cuisine: {
-            type: "field",
-            field: "cuisine_s"
-        },
-        avoid_non_veg: {
+        needkit_util: {
             type: "query",
-            q: "veg_b:true",
+            q: "needkit_util_b:true"
         },
-        avoid_egg: {
+        needmed: {
             type: "query",
-            q: "egg_b:false",
+            q: "needmed_b:true"
         },
-        avoid_cruciferous: {
+        needrescue: {
             type: "query",
-            q: "cruciferous_b:false",
+            q: "needrescue_b:true"
         },
-        avoid_oven: {
+        needtoilet: {
             type: "query",
-            q: "oven_b:false",
+            q: "needtoilet_b:true"
         },
-        avoid_blender: {
+        needwater: {
             type: "query",
-            q: "blender_b:false",
-        },
-        avoid_microwave: {
-            type: "query",
-            q: "microwave_b:false",
+            q: "needwater_b:true"
         }
     },
     highlightParams: {
         "hl": "on",
-        "hl.fl": "name main_ingred",
+        "hl.fl": "place_s district_full_s",
         "hl.snippets": 1,
         "hl:fragsize": 1000,
         "hl.preserveMulti": true
-    },
+    }
 };
