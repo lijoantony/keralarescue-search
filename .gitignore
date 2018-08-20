@@ -41,3 +41,7 @@ chrome-user-data
 /.idea
 package-lock.json
 .ipynb_checkpoints
+data*.json
+data*.csv
+*.tgz
+

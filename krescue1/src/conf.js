@@ -1,5 +1,6 @@
 export default {
-    solrSearchUrl: "http://localhost:8983/solr/krescue10/select",
+    solrSearchUrlDev: "http://localhost:8983/solr/krescue10/select",
+    solrSearchUrl: "https://recipe-solr.websurfed.com/solr/krescue10/select",
     pageSize: 10,
 
     facet: {

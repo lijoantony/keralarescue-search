@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "test": "jest",
-    "start": "webpack-dev-server --progress"
+    "start": "webpack-dev-server --progress",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "react-cookie": "1.0.4",
     "react-router": "^2.4.0",
     "react-solr-connector": "^1.1.1",
+    "webpack-merge": "^4.1.4",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
