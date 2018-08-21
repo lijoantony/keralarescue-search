@@ -1,7 +1,10 @@
-from feeder.common import utils
+import datetime
 
-run_id = utils.get_run_id()
+run_id = 0
 
+def get_run_id():
+    now = datetime.datetime.now()
+    return now.strftime("%m%d_%H%M")
 
 def log(message, error=False):
     error_str = "ERROR" if error else "INFO"
