@@ -5,7 +5,7 @@ const NavBar = (props) =>
   <nav className="navbar navbar-inverse navbar-static-top">
     <div className="container">
       <div className="navbar-header">
-        <a className="navbar-brand" href="#">Recipe Recommendation</a>
+        <a className="navbar-brand" href="#">Kerala Rescue Search</a>
       </div>
       <div id="navbar" className="collapse navbar-collapse">
         <ul className="nav navbar-nav">

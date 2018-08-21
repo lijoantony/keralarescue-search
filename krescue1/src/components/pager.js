@@ -21,7 +21,7 @@ class Pager extends Component {
     const thisPage = Math.floor(this.props.start / this.props.pageSize);
     const lastPage = Math.ceil(this.props.numFound / this.props.pageSize) - 1;
     const fromPage = Math.max(thisPage - 1, 0);
-    const lastNumberedPage = Math.min(fromPage + 2, lastPage);
+    const lastNumberedPage = Math.min(fromPage + 9, lastPage);
     let pages = [];
 
     // convenience function for links below

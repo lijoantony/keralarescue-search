@@ -15,7 +15,11 @@ const About = () =>
   <h1>About</h1>;
 
 const Contact = () =>
-  <h1>Contact</h1>;
+  <div>
+    <h1>Contact:</h1>
+    <h4>&nbsp;&nbsp;ajitsen [at] tokostudios [dot] com</h4>
+    <a href="https://github.com/ajitsen/keralarescue-search/tree/master/krescue1">&nbsp;&nbsp;Github</a>
+  </div>
 
 const RoutedApp = () =>
   <Router history={hashHistory}>
