@@ -2,8 +2,8 @@ import json
 import os
 import urllib.request
 
-from feeder.common import config as config
-from feeder.common.logger import log
+from . import config as config
+from .logger import log
 
 RESCUE_COLLECTION = "krescue10"
 

@@ -1,12 +1,12 @@
 import hashlib
 import time
-import urllib.request
+import urllib
 
-from feeder.common import config as config
+from common import config as config
 
 
 def my_sleep(sec):
-    from feeder.common.logger import log
+    from common.logger import log
     if sec < 2:
         log("Sleeping. < 2sec")
         time.sleep(sec)
@@ -17,7 +17,7 @@ def my_sleep(sec):
 
 
 def get_data_from_url(url, cache=False):
-    from feeder.common.logger import log
+    from common.logger import log
 
     if not cache:
         log("Getting data from " + url)

@@ -1,10 +1,11 @@
 import pandas as pd
 
-from feeder.common.config import CAMP_ALAPY_SHEET
-from feeder.common.data import get_dist_name, get_location_concact
-from feeder.common.logger import log
-from feeder.common.my_pandas import  pandas_read_tsv_str
-from feeder.common.utils import get_data_from_url
+from common.config import CAMP_ALAPY_SHEET
+from common.config import CAMP_TEST_SHEET
+from common.data import get_dist_name, get_location_concact
+from common.logger import log
+from common.my_pandas import  pandas_read_tsv_str
+from common.utils import get_data_from_url
 
 
 def load_tsv(sheet_url):
@@ -25,7 +26,7 @@ def get_solr_feed_file(data_frame):
     data_frame['district_full'] = pd.Series([get_dist_name(code) for code in data_frame['District']])
     data_frame['location'] = pd.Series([get_location_concact(location) for location in
                                         zip(data_frame['Camp Name'], data_frame['Address'], data_frame['Region'])])
-    print(data_frame['location'][1])
+    #print(data_frame['location'][1])
 
     '''
     FIXME - work in progress
@@ -71,11 +72,7 @@ def get_solr_feed_file(data_frame):
 # get all camp data of alappy currently in solr ( ids can be marked as closed)
 
 # get fresh data
-log("Get fresh camp data from alapy")
-data_frame = load_tsv(CAMP_ALAPY_SHEET)
+log("Get fresh camp data from test sheet")
+data_frame = load_tsv(CAMP_TEST_SHEET)
 feed_file = get_solr_feed_file(data_frame)
-
-
-
-
 
