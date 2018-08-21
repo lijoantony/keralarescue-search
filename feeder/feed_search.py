@@ -1,50 +1,24 @@
 #!/usr/bin/python3
-import datetime
+
+import json
 import os
 import urllib.request
-import json
-import time
 
 import pandas as pd
 
-now = datetime.datetime.now()
-run_id = now.strftime("%m%d_%H%M")
-
-# 1. get data from database
-# DATA_FILE = "../data_" + run_id # FIXME - now the url returns 403
-# avoid download if file already downloaded in last 10mins
-
-customHeader = {
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Connection": "keep-alive",
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
-}
-
-API_URL = "https://keralarescue.in/data"
-SOLR_URL = "http://localhost:8983/solr/krescue10/select"
-
-
-def log(message, error=False):
-    error_str = "ERROR" if error else "INFO"
-    print("[%s] %s: %s" % (run_id, error_str, message))
-
-
-def get_last_known_id_in_solr():
-    url = SOLR_URL + "?fl=id&q=*:*&rows=1&sort=last_modified%20desc"
-    req = urllib.request.Request(url, headers=customHeader)
-    response = urllib.request.urlopen(req).read()
-    json_obj = json.loads(response.decode('utf-8'))
-    if json_obj and isinstance(json_obj['response']['docs'], list):
-        return json_obj['response']['docs'][0]['id']
+import feeder.common.config as config
+from feeder.common.data import get_dist_name
+from feeder.common.logger import log
+from feeder.common.solr_helper import get_last_known_id_in_solr, feed_csv_to_solr, RESCUE_COLLECTION
+from feeder.common.utils import my_sleep
 
 
 def save_data_json(last_id, fetch=True):
     if fetch:
-        url = API_URL + "?offset=" + last_id
+        url = config.API_URL + "?offset=" + last_id
         log("Downloading " + url)
         json_file1 = "/tmp/data_" + last_id + ".json"
-        req = urllib.request.Request(url, headers=customHeader)
+        req = urllib.request.Request(url, headers=config.get_req_header())
         response = urllib.request.urlopen(req).read()
         json_obj = json.loads(response.decode('utf-8'))
         log("======= Meta ==========")
@@ -106,41 +80,6 @@ def convert_json_to_csv(json_file):
     return csv_file
 
 
-def get_dist_name(code):
-    code_to_name = {
-         'tvm': 'Thiruvananthapuram',
-         'ptm': 'Pathanamthitta',
-         'alp': 'Alappuzha',
-         'ktm': 'Kottayam',
-         'idk': 'Idukki',
-         'mpm': 'Malappuram',
-         'koz': 'Kozhikode',
-         'wnd': 'Wayanad',
-         'knr': 'Kannur',
-         'ksr': 'Kasaragod',
-         'pkd': 'Palakkad',
-         'tcr': 'Thrissur',
-         'ekm': 'Ernakulam',
-         'kol': 'Kollam'
-    }
-    return code_to_name[code]
-
-
-def feed_csv_to_solr(csv_file):
-    log("Feeding data to solr")
-    log(os.popen("/opt/solr/bin/post -c krescue10  " + csv_file).readlines())
-
-
-def my_sleep(sec):
-    if sec < 2:
-        log("Sleeping. < 2sec")
-        time.sleep(sec)
-        return
-    for i in range(sec):
-        log("Sleeping...")
-        time.sleep(1)
-
-
 def main():
     prev_last_id = 1
     iterations = 1
@@ -161,7 +100,7 @@ def main():
         log("===============")
         log("Json converted to CSV: " + csv_file_out + " lines: " + str(lines))
         if lines > 1:
-            feed_csv_to_solr(csv_file_out)
+            feed_csv_to_solr(RESCUE_COLLECTION, csv_file_out)
             prev_last_id = last_id
             my_sleep(10)
         else:
