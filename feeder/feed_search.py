@@ -2,7 +2,6 @@
 
 import json
 import os
-import urllib.request
 
 import pandas as pd
 
@@ -10,7 +9,7 @@ import feeder.common.config as config
 from feeder.common.data import get_dist_name
 from feeder.common.logger import log
 from feeder.common.solr_helper import get_last_known_id_in_solr, feed_csv_to_solr, RESCUE_COLLECTION
-from feeder.common.utils import my_sleep
+from feeder.common.utils import my_sleep, get_data_from_url
 
 
 def save_data_json(last_id, fetch=True):
@@ -18,9 +17,7 @@ def save_data_json(last_id, fetch=True):
         url = config.API_URL + "?offset=" + last_id
         log("Downloading " + url)
         json_file1 = "/tmp/data_" + last_id + ".json"
-        req = urllib.request.Request(url, headers=config.get_req_header())
-        response = urllib.request.urlopen(req).read()
-        json_obj = json.loads(response.decode('utf-8'))
+        json_obj = json.loads(get_data_from_url(url))
         log("======= Meta ==========")
         log(json_obj['meta'])
         if json_obj and isinstance(json_obj['data'], list) and len(json_obj['data']) > 1:

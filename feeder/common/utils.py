@@ -1,5 +1,8 @@
 import datetime
 import time
+import urllib.request
+
+from feeder.common import config as config
 
 
 def get_run_id():
@@ -16,3 +19,11 @@ def my_sleep(sec):
     for i in range(sec):
         log("Sleeping...")
         time.sleep(1)
+
+
+def get_data_from_url(url):
+    req = urllib.request.Request(url, headers=config.get_req_header())
+    response = urllib.request.urlopen(req).read()
+    return response.decode('utf-8')
+
+

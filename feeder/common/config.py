@@ -9,3 +9,11 @@ def get_req_header():
 API_URL = "https://keralarescue.in/data"
 
 SOLR_URL = "http://localhost:8983/solr/krescue10/select"
+
+CAMP_ALAPY_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkyEtVvIQtcApxe9cijuwK9QCGWVzQIdw7Fg-N2V7pCyZRFJjZ7qJ40hnQnhx-yHcYWkTSjHfJtsd3/pub?gid=0&single=true&output=tsv"
+CAMP_PATANAM_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkyEtVvIQtcApxe9cijuwK9QCGWVzQIdw7Fg-N2V7pCyZRFJjZ7qJ40hnQnhx-yHcYWkTSjHfJtsd3/pub?gid=504181366&single=true&output=tsv"
+CAMP_ERN_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkyEtVvIQtcApxe9cijuwK9QCGWVzQIdw7Fg-N2V7pCyZRFJjZ7qJ40hnQnhx-yHcYWkTSjHfJtsd3/pub?gid=476244282&single=true&output=tsv"
+CAMP_KANNUR_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkyEtVvIQtcApxe9cijuwK9QCGWVzQIdw7Fg-N2V7pCyZRFJjZ7qJ40hnQnhx-yHcYWkTSjHfJtsd3/pub?gid=2084744377&single=true&output=tsv"
+CAMP_IDUKKI_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkyEtVvIQtcApxe9cijuwK9QCGWVzQIdw7Fg-N2V7pCyZRFJjZ7qJ40hnQnhx-yHcYWkTSjHfJtsd3/pub?gid=1108101787&single=true&output=tsv"
+CAMP_KOLLAM_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkyEtVvIQtcApxe9cijuwK9QCGWVzQIdw7Fg-N2V7pCyZRFJjZ7qJ40hnQnhx-yHcYWkTSjHfJtsd3/pub?gid=271217651&single=true&output=tsv"
+CAMP_PALAKAD_SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTkyEtVvIQtcApxe9cijuwK9QCGWVzQIdw7Fg-N2V7pCyZRFJjZ7qJ40hnQnhx-yHcYWkTSjHfJtsd3/pub?gid=960659497&single=true&output=tsv"
