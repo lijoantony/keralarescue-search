@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 import json
 import os
@@ -11,7 +11,7 @@ import pandas as pd
 import common.config as config
 from common.logger import log
 
-TOKEN = "ya29.GlsBBodr3gE6L4KkQ6KTl4WUC5Jh8O37snIhmQGtEfB01BMT8W6dDQVhEBuL4YkSoRSVGF542XcjaV3tJkhLSEYgrueazRc7er8ZVQ3Ol0KTeaRNwpB1j8XxLsIq";
+TOKEN = "<token>";
 
 SHEETS = [{
     "name": "Camps profile_RCIS_KeralaFloods2018 (Responses)",
